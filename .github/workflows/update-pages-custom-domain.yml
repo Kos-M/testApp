@@ -1,0 +1,41 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build React App
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        env:
+          CUSTOM_DOMAIN: ${{ secrets.CUSTOM_DOMAIN }}
+        run: |
+          # Deploy your React app to GitHub Pages
+          # Access the secret using $GH_PAGES_SECRET
+          # For example:
+          # echo $GH_PAGES_SECRET
+          # You can use the secret in your deployment script
+          echo "CUSTOM_DOMAIN=$CUSTOM_DOMAIN"  
+          # npm run deploy
+        # Example deployment script using the secret:
+        # deploy.sh
+        # In deploy.sh, you can use the $GH_PAGES_SECRET as needed
+
